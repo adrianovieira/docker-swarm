@@ -81,7 +81,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # if plugin installed also set /etc/hosts
     OSLV_MANAGER_FQDN = "manager1" #"#{OSLV_NAME}-manager1.#{OSLV_DOMAIN}"
     #manager1.vm.host_name = "#{OSLV_MANAGER_FQDN}"
-		#manager1.vm.network "private_network", ip: OSLV_PVTNET
+    manager1.vm.network "private_network", ip: OSLV_PVTNET,
+          virtualbox__intnet: "docker_network"
 
     manager1.vm.provider "virtualbox" do |virtualbox| # Virtualbox.settings
       virtualbox.customize [ "modifyvm", :id, "--cpus", OSLV_CPU ]
@@ -101,7 +102,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # if plugin installed also set /etc/hosts
     OSLV_WORKER1_FQDN = "worker1" #"#{OSLV_NAME}-worker1.#{OSLV_DOMAIN}"
     #worker1.vm.host_name = "#{OSLV_WORKER1_FQDN}"
-    #worker1.vm.network "private_network", ip: worker1_ipv4
+    worker1.vm.network "private_network", ip: worker_ipv4,
+          virtualbox__intnet: "docker_network"
 
     worker1.vm.provider "virtualbox" do |virtualbox| # Virtualbox.settings
       virtualbox.customize [ "modifyvm", :id, "--cpus", OSLV_CPU ]
