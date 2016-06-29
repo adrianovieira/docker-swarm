@@ -47,8 +47,6 @@ HTTPS_PROXY=HTTP_PROXY
 VAGRANTFILE_API_VERSION = "2"
 
 ipv4 = OSLV_PVTNET.split('.')
-worker1_ipv4 = [ipv4[0], ipv4[1],ipv4[2], ipv4[3].to_i>=250?ipv4[3].to_i-1:ipv4[3].to_i+1 ].join('.')
-worker2_ipv4 = [ipv4[0], ipv4[1],ipv4[2], ipv4[3].to_i>=250?ipv4[3].to_i-2:ipv4[3].to_i+2 ].join('.')
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos/7"
