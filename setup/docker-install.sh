@@ -8,3 +8,6 @@ sudo cp /home/vagrant/sync/setup/yum.repos.d/* /etc/yum.repos.d/
 
 echo "INFO: [docker-install.sh] install docker-engine"
 sudo yum install -y -q docker-engine
+
+echo "INFO: [docker-install.sh] start docker-engine"
+sudo systemctl enable docker && sudo systemctl start docker
