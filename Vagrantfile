@@ -99,7 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "worker#{worker_id}" do |worker|  # define-VM swarm-worker1
       # plugin https://github.com/oscar-stack/vagrant-hosts
       # if plugin installed also set /etc/hosts
-      OSLV_WORKER_FQDN = "worker#{worker_id}" #"#{OSLV_NAME}-worker1.#{OSLV_DOMAIN}"
+      worker_fdqn = "worker#{worker_id}" #"#{OSLV_NAME}-worker1.#{OSLV_DOMAIN}"
       #worker1.vm.host_name = "#{OSLV_WORKER1_FQDN}"
       worker_ipv4 = [ipv4[0], ipv4[1],ipv4[2], (ipv4[3].to_i+worker_id)>=250?(ipv4[3].to_i-worker_id):ipv4[3].to_i+worker_id ].join('.')
       worker.vm.network "private_network", ip: worker_ipv4,
@@ -108,7 +108,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       worker.vm.provider "virtualbox" do |virtualbox| # Virtualbox.settings
         virtualbox.customize [ "modifyvm", :id, "--cpus", OSLV_CPU ]
         virtualbox.customize [ "modifyvm", :id, "--memory", OSLV_MEMORY ]
-        virtualbox.customize [ "modifyvm", :id, "--name", OSLV_WORKER_FQDN ]
+        virtualbox.customize [ "modifyvm", :id, "--name", worker_fdqn ]
         virtualbox.customize [ "modifyvm", :id, "--groups", "/#{OSLV_GROUP}" ]
       end # end Virtualbox.settings
 
