@@ -21,7 +21,7 @@ OSLV_CPU = ENV.key?('OSLV_CPU') ? ENV['OSLV_CPU'] : 1
 OSLV_DOMAIN = (ENV.key?('OSLV_DOMAIN') ? ENV['OSLV_DOMAIN'] : "hacklab").downcase
 
 # VM private network (default: 10.0.3.10)
-OSLV_PVTNET = ENV.key?('OSLV_PVTNET') ? ENV['OSLV_PVTNET'] : "172.18.0.10"
+OSLV_PVTNET = ENV.key?('OSLV_PVTNET') ? ENV['OSLV_PVTNET'] : "192.168.50.10"
 
 # VM group (default: OSLV)
 OSLV_GROUP = (ENV.key?('OSLV_GROUP') ? ENV['OSLV_GROUP'] : "Docker-Swarm").downcase
