@@ -93,6 +93,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       sh.path = "setup/docker-install.sh"
     end # end docker-install provision
 
+    manager.vm.provision "docker-setup-swarm_manager", type: "shell" do |sh|
+      sh.path = "setup/docker-setup-swarm_manager.sh"
+      sh.args   = ["#{OSLV_PVTNET}", "2377"]
+    end # end docker-setup-swarm_manager provision
+
   end # end-of-define-VM swarm-manager1
 
   (1..2).each do |worker_id|
@@ -115,6 +120,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       worker.vm.provision "docker-install", type: "shell" do |sh|
         sh.path = "setup/docker-install.sh"
       end # end docker-install provision
+
+      worker.vm.provision "docker-setup-swarm_worker", type: "shell" do |sh|
+        sh.path = "setup/docker-setup-swarm_worker.sh"
+        sh.args   = ["#{OSLV_PVTNET}", "2377"]
+      end # end docker-setup-swarm_worker provision
 
     end # end-of-define-VM swarm-worker
   end # end-of-define-VM-loop worker_id
