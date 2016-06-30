@@ -51,7 +51,7 @@ ipv4 = OSLV_PVTNET.split('.')
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "centos/7"
   config.vm.box_check_update = false
-  #config.vm.synced_folder "./", "/home/vagrant/oslv-devel/"
+  config.vm.synced_folder ".", "/home/vagrant/sync", type: "rsync"
 
   if Vagrant.has_plugin?("vagrant-hosts")
     config.vm.provision :hosts do |provisioner|
