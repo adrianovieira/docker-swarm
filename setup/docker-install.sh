@@ -19,10 +19,10 @@ if [[ "$ID" == "centos" && "$VERSION_ID" == "7" ]]; then
 
 elif [[ "$ID" == "ubuntu" && "$VERSION_ID" == "14.04" ]]; then
   echo "INFO: [docker-install.sh] importing gpg key from dockerproject"
-  sudo cp /home/vagrant/sync/setup/apt.source.list/docker-ubuntu-trusty.list /etc/apt/sources.list.d/docker.list
+  sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 
   echo "INFO: [docker-install.sh] install docker-engine"
-  sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+  sudo cp /home/vagrant/sync/setup/apt.source.list/docker-ubuntu-trusty.list /etc/apt/sources.list.d/docker.list
   sudo apt-get -qq autoclean
   sudo apt-get -qq update
   sudo apt-get -qq -y install language-pack-pt docker-engine
