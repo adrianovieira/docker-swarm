@@ -1,0 +1,2 @@
+deb https://apt.dockerproject.org/repo ubuntu-trusty main testing
+#deb https://apt.dockerproject.org/repo ubuntu-trusty main experimental
