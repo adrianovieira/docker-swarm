@@ -67,11 +67,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.proxy.http     = HTTP_PROXY
     config.proxy.https    = HTTPS_PROXY
-    config.proxy.no_proxy = "localhost, 127.0.0.1, .#{OSLV_DOMAIN}"
+
     print "proxy settings: \n"
     print " - proxy.http:  "+config.proxy.http+"\n"
-    print " - proxy.https: "+config.proxy.https+"\n"
-    print " - no_proxy: "+config.proxy.no_proxy+"\n\n"
+    print " - proxy.https: "+config.proxy.https+"\n\n"
+
   end # end proxy settings
 
   config.vm.define "manager1" do |manager|  # define-VM swarm-manager1
