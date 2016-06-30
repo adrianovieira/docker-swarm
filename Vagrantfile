@@ -75,6 +75,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   end # end proxy settings
 
+  config.vm.provision "bootstrap", type: "shell" do |sh|
+    sh.path = "setup/puppet-install.sh"
+  end # end bootstrap provision (puppet-install)
+
   config.vm.define "manager1" do |manager|  # define-VM swarm-manager1
     # plugin https://github.com/oscar-stack/vagrant-hosts
     # if plugin installed also set /etc/hosts
@@ -89,15 +93,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       virtualbox.customize [ "modifyvm", :id, "--name", OSLV_MANAGER_FQDN ]
       virtualbox.customize [ "modifyvm", :id, "--groups", "/#{OSLV_GROUP}" ]
     end # end Virtualbox.settings
-
-    manager.vm.provision "docker-install", type: "shell" do |sh|
-      sh.path = "setup/docker-install.sh"
-    end # end docker-install provision
-
-    manager.vm.provision "docker-setup-swarm_manager", type: "shell" do |sh|
-      sh.path = "setup/docker-setup-swarm_manager.sh"
-      sh.args   = ["#{OSLV_PVTNET}", "2377"]
-    end # end docker-setup-swarm_manager provision
 
   end # end-of-define-VM swarm-manager1
 
@@ -117,15 +112,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         virtualbox.customize [ "modifyvm", :id, "--name", worker_fdqn ]
         virtualbox.customize [ "modifyvm", :id, "--groups", "/#{OSLV_GROUP}" ]
       end # end Virtualbox.settings
-
-      worker.vm.provision "docker-install", type: "shell" do |sh|
-        sh.path = "setup/docker-install.sh"
-      end # end docker-install provision
-
-      worker.vm.provision "docker-setup-swarm_worker", type: "shell" do |sh|
-        sh.path = "setup/docker-setup-swarm_worker.sh"
-        sh.args   = ["#{OSLV_PVTNET}", "2377"]
-      end # end docker-setup-swarm_worker provision
 
     end # end-of-define-VM swarm-worker
   end # end-of-define-VM-loop worker_id
