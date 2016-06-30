@@ -10,14 +10,14 @@ if [[ "$ID" == "centos" && "$VERSION_ID" == "7" ]]; then
   sudo yum install -y puppet-agent
 elif [[ "$ID" == "ubuntu" && "$VERSION_ID" == "14.04" ]]; then
   wget --quiet https://apt.puppetlabs.com/puppetlabs-release-pc1-precise.deb
-  sudo dpkg -i puppetlabs-release-pc1-precise.deb
+  sudo dpkg --force-confnew -i puppetlabs-release-pc1-precise.deb
   sudo apt-get -qq autoclean
   sudo apt-get -qq update
   sudo apt-get -qq -y install puppet-agent
   sudo apt-get -qq autoremove
 elif [[ "$ID" == "debian" && "$VERSION_ID" == "8" ]]; then
   wget --quiet https://apt.puppetlabs.com/puppetlabs-release-pc1-jessie.deb
-  sudo dpkg -i puppetlabs-release-pc1-jessie.deb
+  sudo dpkg --force-confnew -i puppetlabs-release-pc1-jessie.deb
   sudo apt-get -qq autoclean
   sudo apt-get -qq update
   sudo apt-get -qq -y install puppet-agent
