@@ -80,7 +80,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "manager1" do |manager|  # define-VM swarm-manager1
     # vagrant plugin install vagrant-hosts vagrant-hostsupdater
     # if plugins installed also set /etc/hosts
-    OSLV_MANAGER_FQDN = "manager1" #"#{OSLV_NAME}-manager1.#{OSLV_DOMAIN}"
+    OSLV_MANAGER_FQDN = "#{OSLV_NAME}-manager1.#{OSLV_DOMAIN}"
     manager.vm.host_name = "#{OSLV_MANAGER_FQDN}"
     manager.vm.network "private_network", ip: OSLV_PVTNET
 
@@ -106,8 +106,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "worker#{worker_id}" do |worker|  # define-VM swarm-worker1
       # plugin https://github.com/oscar-stack/vagrant-hosts
       # if plugin installed also set /etc/hosts
-      worker_fdqn = "worker#{worker_id}" #"#{OSLV_NAME}-worker1.#{OSLV_DOMAIN}"
-      #worker1.vm.host_name = "#{OSLV_WORKER1_FQDN}"
+      worker_fdqn = "#{OSLV_NAME}-worker#{worker_id}.#{OSLV_DOMAIN}"
       worker_ipv4 = [ipv4[0], ipv4[1],ipv4[2], (ipv4[3].to_i+worker_id)>=250?(ipv4[3].to_i-worker_id):ipv4[3].to_i+worker_id ].join('.')
       worker.vm.network "private_network", ip: worker_ipv4
 
