@@ -54,6 +54,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_check_update = false
   config.vm.synced_folder ".", "/home/vagrant/sync", type: "rsync"
 
+  # vagrant plugin install vagrant-hosts vagrant-hostsupdater
+  # if plugins installed also set /etc/hosts
   if Vagrant.has_plugin?("vagrant-hosts")
     config.vm.provision :hosts do |provisioner|
       provisioner.add_localhost_hostnames = false
@@ -76,12 +78,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end # end proxy settings
 
   config.vm.define "manager1" do |manager|  # define-VM swarm-manager1
-    # plugin https://github.com/oscar-stack/vagrant-hosts
-    # if plugin installed also set /etc/hosts
+    # vagrant plugin install vagrant-hosts vagrant-hostsupdater
+    # if plugins installed also set /etc/hosts
     OSLV_MANAGER_FQDN = "manager1" #"#{OSLV_NAME}-manager1.#{OSLV_DOMAIN}"
-    #manager1.vm.host_name = "#{OSLV_MANAGER_FQDN}"
-    manager.vm.network "private_network", ip: OSLV_PVTNET,
-          virtualbox__intnet: "docker_network"
+    manager.vm.host_name = "#{OSLV_MANAGER_FQDN}"
+    manager.vm.network "private_network", ip: OSLV_PVTNET
 
     manager.vm.provider "virtualbox" do |virtualbox| # Virtualbox.settings
       virtualbox.customize [ "modifyvm", :id, "--cpus", OSLV_CPU ]
@@ -108,8 +109,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       worker_fdqn = "worker#{worker_id}" #"#{OSLV_NAME}-worker1.#{OSLV_DOMAIN}"
       #worker1.vm.host_name = "#{OSLV_WORKER1_FQDN}"
       worker_ipv4 = [ipv4[0], ipv4[1],ipv4[2], (ipv4[3].to_i+worker_id)>=250?(ipv4[3].to_i-worker_id):ipv4[3].to_i+worker_id ].join('.')
-      worker.vm.network "private_network", ip: worker_ipv4,
-            virtualbox__intnet: "docker_network"
+      worker.vm.network "private_network", ip: worker_ipv4
 
       worker.vm.provider "virtualbox" do |virtualbox| # Virtualbox.settings
         virtualbox.customize [ "modifyvm", :id, "--cpus", OSLV_CPU ]
