@@ -63,4 +63,9 @@ fi
 echo "INFO: [docker-install.sh] setup vagrant user as a docker group member"
 sudo usermod -G docker vagrant
 
+echo "INFO: [docker-setup-swarm_test.sh] pull some docker images"
+sudo docker pull adrianovieira/flask_kafka:debian8
+#sudo docker pull adrianovieira/flask_kafka:python27
+#sudo docker pull adrianovieira/flask_kafka:ubuntu16
+
 echo "INFO: [docker-install.sh] finished successfuly"
