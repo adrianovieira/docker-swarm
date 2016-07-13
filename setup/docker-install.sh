@@ -12,7 +12,7 @@ if [[ "$ID" == "centos" && "$VERSION_ID" == "7" ]]; then
   sudo cp /home/vagrant/sync/setup/yum.repos.d/* /etc/yum.repos.d/
 
   echo "INFO: [docker-install.sh] install docker-engine"
-  sudo yum install -y -q docker-engine
+  sudo yum install -y -q docker-engine-1.12.0-0.3.rc3
   if [[ "$HTTP_PROXY" != "http://proxy_not_set:3128" ]]; then
     echo "INFO: [docker-install.sh] setting docker service proxy ($HTTP_PROXY)"
     sudo mkdir -p /etc/systemd/system/docker.service.d
@@ -32,7 +32,7 @@ elif [[ "$ID" == "ubuntu" && "$VERSION_ID" == "14.04" ]]; then
   sudo cp /home/vagrant/sync/setup/apt.source.list/docker-ubuntu-trusty.list /etc/apt/sources.list.d/docker.list
   sudo apt-get -qq autoclean
   sudo apt-get -qq update
-  sudo apt-get -qq -y --force-yes install language-pack-pt docker-engine
+  sudo apt-get -qq -y --force-yes install language-pack-pt docker-engine=1.12.0~rc3-0~trusty
 
   echo "INFO: [docker-install.sh] status docker-engine"
   service docker status
@@ -50,7 +50,7 @@ elif [[ "$ID" == "debian" && "$VERSION_ID" == "8" ]]; then
   sudo apt-get install -qq -y apt-transport-https
   sudo apt-get -qq autoclean
   sudo apt-get -qq update
-  sudo apt-get -qq -y --force-yes install docker-engine
+  sudo apt-get -qq -y --force-yes install docker-engine=1.12.0~rc3-0~jessie
 
   echo "INFO: [docker-install.sh] start docker-engine"
   sudo systemctl enable docker && sudo systemctl start docker
