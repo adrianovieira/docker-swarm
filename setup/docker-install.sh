@@ -12,7 +12,7 @@ if [[ "$ID" == "centos" && "$VERSION_ID" == "7" ]]; then
   sudo cp /home/vagrant/sync/setup/yum.repos.d/* /etc/yum.repos.d/
 
   echo "INFO: [docker-install.sh] install docker-engine"
-  sudo yum install -y -q docker-engine-1.12.0-0.3.rc3
+  sudo yum install -y -q docker-engine-1.12.0-0.3.rc3.el7.centos
   if [[ "$HTTP_PROXY" != "http://proxy_not_set:3128" ]]; then
     echo "INFO: [docker-install.sh] setting docker service proxy ($HTTP_PROXY)"
     sudo mkdir -p /etc/systemd/system/docker.service.d
