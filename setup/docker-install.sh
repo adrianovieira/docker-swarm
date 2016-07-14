@@ -60,6 +60,10 @@ else
   exit 1
 fi
 
+echo "INFO: [docker-install.sh] install docker-compose"
+sudo curl -L https://github.com/docker/compose/releases/download/1.8.0-rc2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
 echo "INFO: [docker-install.sh] setup vagrant user as a docker group member"
 sudo usermod -G docker vagrant
 
