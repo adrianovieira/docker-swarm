@@ -49,8 +49,8 @@ VAGRANTFILE_API_VERSION = "2"
 ipv4 = OSLV_PVTNET.split('.')
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # ubuntu/trusty64 debian/jessie64 centos/7 ubuntu/xenial64
-  config.vm.box = "debian/jessie64" # only ubuntu-trusty and debian-jessie for now
+  # ubuntu/trusty64 debian/jessie64 centos/7
+  config.vm.box = "centos/7"
   config.vm.box_check_update = false
   config.vm.synced_folder ".", "/home/vagrant/sync", type: "rsync"
 
