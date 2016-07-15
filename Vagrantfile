@@ -49,8 +49,8 @@ VAGRANTFILE_API_VERSION = "2"
 ipv4 = OSLV_PVTNET.split('.')
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  # ubuntu/trusty64 debian/jessie64 centos/7
-  config.vm.box = "centos/7"
+  # supported box adrianovieira/centos7
+  config.vm.box = "adrianovieira/centos7-docker1.12rc3"
   config.vm.box_check_update = false
   config.vm.synced_folder ".", "/home/vagrant/sync", type: "rsync"
 
@@ -80,7 +80,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "manager1" do |manager|  # define-VM swarm-manager1
     # vagrant plugin install vagrant-hosts vagrant-hostsupdater
     # if plugins installed also set /etc/hosts
-    OSLV_MANAGER_FQDN = "#{OSLV_NAME}-manager1.#{OSLV_DOMAIN}"
+    OSLV_MANAGER_FQDN = "manager1" #"#{OSLV_NAME}-manager1.#{OSLV_DOMAIN}"
     manager.vm.host_name = "#{OSLV_MANAGER_FQDN}"
     manager.vm.network "private_network", ip: OSLV_PVTNET
 
@@ -91,14 +91,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       virtualbox.customize [ "modifyvm", :id, "--groups", "/#{OSLV_GROUP}" ]
     end # end Virtualbox.settings
 
-    manager.vm.provision "docker-install", type: "shell" do |sh|
-      sh.path = "setup/docker-install.sh"
-    end # end docker-install provision
-
     manager.vm.provision "docker-setup-swarm_manager", type: "shell" do |sh|
       sh.path = "setup/docker-setup-swarm_manager.sh"
       sh.args   = ["#{OSLV_PVTNET}", "2377"]
     end # end docker-setup-swarm_manager provision
+
+    #manager.vm.provision "docker-swarm_test", type: "shell", path: "setup/docker-setup-swarm_test.sh"
 
   end # end-of-define-VM swarm-manager1
 
@@ -106,7 +104,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "worker#{worker_id}" do |worker|  # define-VM swarm-worker1
       # plugin https://github.com/oscar-stack/vagrant-hosts
       # if plugin installed also set /etc/hosts
-      worker_fdqn = "#{OSLV_NAME}-worker#{worker_id}.#{OSLV_DOMAIN}"
+      worker_fdqn = "worker#{worker_id}" #"#{OSLV_NAME}-worker#{worker_id}.#{OSLV_DOMAIN}"
       worker_ipv4 = [ipv4[0], ipv4[1],ipv4[2], (ipv4[3].to_i+worker_id)>=250?(ipv4[3].to_i-worker_id):ipv4[3].to_i+worker_id ].join('.')
       worker.vm.network "private_network", ip: worker_ipv4
 
@@ -116,10 +114,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         virtualbox.customize [ "modifyvm", :id, "--name", worker_fdqn ]
         virtualbox.customize [ "modifyvm", :id, "--groups", "/#{OSLV_GROUP}" ]
       end # end Virtualbox.settings
-
-      worker.vm.provision "docker-install", type: "shell" do |sh|
-        sh.path = "setup/docker-install.sh"
-      end # end docker-install provision
 
       worker.vm.provision "docker-setup-swarm_worker", type: "shell" do |sh|
         sh.path = "setup/docker-setup-swarm_worker.sh"
