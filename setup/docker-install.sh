@@ -13,12 +13,6 @@ if [[ "$ID" == "centos" && "$VERSION_ID" == "7" ]]; then
 
   echo "INFO: [docker-install.sh] install docker-engine"
   sudo yum install -y -q docker-engine-1.12.0-0.3.rc3.el7.centos
-  if [[ "$HTTP_PROXY" != "http://proxy_not_set:3128" ]]; then
-    echo "INFO: [docker-install.sh] setting docker service proxy ($HTTP_PROXY)"
-    sudo mkdir -p /etc/systemd/system/docker.service.d
-    sudo echo "[Service]" > /etc/systemd/system/docker.service.d/proxy.conf
-    sudo echo "Environment='HTTPS_PROXY=$HTTP_PROXY' 'HTTP_PROXY=$HTTP_PROXY'" >> /etc/systemd/system/docker.service.d/proxy.conf
-  fi
 
   echo "INFO: [docker-install.sh] start docker-engine"
   sudo systemctl daemon-reload
