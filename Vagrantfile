@@ -123,4 +123,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end # end-of-define-VM swarm-worker
   end # end-of-define-VM-loop worker_id
 
+  config.vm.provision "docker-setup-proxy", type: "shell", path: "setup/docker-setup-proxy.sh"
+
 end # end-of-file
