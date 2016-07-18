@@ -8,7 +8,7 @@
  */
  '''
 
-# VM BASE NAME on virtualbox (default: OSLV-node-dev_tests)
+# VM BASE NAME on virtualbox (default: oslv-swarm)
 OSLV_NAME = (ENV.key?('OSLV_NAME') ? ENV['OSLV_NAME'] : "oslv-swarm").downcase
 
 # VM memory on virtualbox (default: 2048MB)
@@ -20,10 +20,10 @@ OSLV_CPU = ENV.key?('OSLV_CPU') ? ENV['OSLV_CPU'] : 1
 # VM domain suffix (default: hacklab)
 OSLV_DOMAIN = (ENV.key?('OSLV_DOMAIN') ? ENV['OSLV_DOMAIN'] : "hacklab").downcase
 
-# VM private network (default: 10.0.3.10)
+# VM private network (default: 192.168.50.10)
 OSLV_PVTNET = ENV.key?('OSLV_PVTNET') ? ENV['OSLV_PVTNET'] : "192.168.50.10"
 
-# VM group (default: OSLV)
+# VM group (default: Docker-Swarm)
 OSLV_GROUP = (ENV.key?('OSLV_GROUP') ? ENV['OSLV_GROUP'] : "Docker-Swarm").downcase
 
 # VM docker swarm workers (default: 2)
