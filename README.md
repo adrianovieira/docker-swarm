@@ -9,7 +9,7 @@
 5. [Compatibility](#compatibility)
 6. [Requirements](#requirements)
 7. [Setup](#setup)
-8. [Exposed VMs](#exposed_vms)
+8. [Exposed VMs](#exposed-vms)
 9. [Tasting](#tasting)
 
 ## Overview
@@ -86,4 +86,4 @@ then... inside `manager1`
 
 Well done... (if nothing goes wrong) now you could acces the application from your host browser: `http://manager1/`.
 
-***keep having fun and CALMS***
+***keep CALMS and having fun***
