@@ -29,21 +29,6 @@ OSLV_GROUP = (ENV.key?('OSLV_GROUP') ? ENV['OSLV_GROUP'] : "Docker-Swarm").downc
 # VM fqdn
 OSLV_FQDN = "#{OSLV_NAME}.#{OSLV_DOMAIN}"
 
-# vagrant-proxyconf: https://tmatilai.github.io/vagrant-proxyconf
-# if necessary set OS environment variable PROXY|HTTP_PROXY|HTTPS_PROXY="http://proxy:port"
-if ENV.key?('PROXY')
-  HTTP_PROXY=ENV['PROXY']
-elsif ENV.key?('proxy')
-  HTTP_PROXY=ENV['proxy']
-else
-  print Vagrant.has_plugin?("vagrant-proxyconf") ?
-        "WARN: you installed vagrant-proxyconf plugin, "+
-        "but proxy environment variable (PROXY) not set yet!\n\n" : ''
-
-  HTTP_PROXY="http://proxy_not_set:3128"
-end
-HTTPS_PROXY=HTTP_PROXY
-
 VAGRANTFILE_API_VERSION = "2"
 
 ipv4 = OSLV_PVTNET.split('.')
@@ -64,18 +49,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       #provisioner.add_host OSLV_PVTNET, ['mvps']
     end
   end
-
-  if Vagrant.has_plugin?("vagrant-proxyconf") &&
-        (HTTP_PROXY != "http://proxy_not_set:3128") # proxy settings
-
-    config.proxy.http     = HTTP_PROXY
-    config.proxy.https    = HTTPS_PROXY
-
-    print "proxy settings: \n"
-    print " - proxy.http:  "+config.proxy.http+"\n"
-    print " - proxy.https: "+config.proxy.https+"\n\n"
-
-  end # end proxy settings
 
   config.vm.define "manager1" do |manager|  # define-VM swarm-manager1
     # vagrant plugin install vagrant-hosts vagrant-hostsupdater
