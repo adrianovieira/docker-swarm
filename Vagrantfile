@@ -91,7 +91,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       virtualbox.customize [ "modifyvm", :id, "--groups", "/#{OSLV_GROUP}" ]
     end # end Virtualbox.settings
 
-    manager.vm.provision "docker-setup-swarm_manager", type: "shell" do |sh|
+    manager.vm.provision "hostname_setup", type: "shell",
+            inline: "sudo hostnamectl set-hostname #{OSLV_MANAGER_FQDN}"
+
+    manager.vm.provision "docker-setup-swarm", type: "shell" do |sh|
       sh.path = "setup/docker-setup-swarm_manager.sh"
       sh.args   = ["#{OSLV_PVTNET}", "2377"]
     end # end docker-setup-swarm_manager provision
@@ -115,7 +118,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         virtualbox.customize [ "modifyvm", :id, "--groups", "/#{OSLV_GROUP}" ]
       end # end Virtualbox.settings
 
-      worker.vm.provision "docker-setup-swarm_worker", type: "shell" do |sh|
+      worker.vm.provision "hostname_setup", type: "shell",
+                inline: "sudo hostnamectl set-hostname #{worker_fdqn}"
+
+      worker.vm.provision "docker-setup-swarm", type: "shell" do |sh|
         sh.path = "setup/docker-setup-swarm_worker.sh"
         sh.args   = ["#{OSLV_PVTNET}", "2377"]
       end # end docker-setup-swarm_worker provision
