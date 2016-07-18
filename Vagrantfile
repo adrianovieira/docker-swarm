@@ -26,6 +26,9 @@ OSLV_PVTNET = ENV.key?('OSLV_PVTNET') ? ENV['OSLV_PVTNET'] : "192.168.50.10"
 # VM group (default: OSLV)
 OSLV_GROUP = (ENV.key?('OSLV_GROUP') ? ENV['OSLV_GROUP'] : "Docker-Swarm").downcase
 
+# VM docker swarm workers (default: 2)
+OSLV_SWARM_WORKERS = (ENV.key?('OSLV_SWARM_WORKERS') ? ENV['OSLV_SWARM_WORKERS'].to_i : 1)
+
 # VM fqdn
 OSLV_FQDN = "#{OSLV_NAME}.#{OSLV_DOMAIN}"
 
@@ -79,7 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   end # end-of-define-VM swarm-manager1
 
-  (1..2).each do |worker_id|
+  (1..(OSLV_SWARM_WORKERS)).each do |worker_id|
     config.vm.define "worker#{worker_id}" do |worker|  # define-VM swarm-worker1
       # plugin https://github.com/oscar-stack/vagrant-hosts
       # if plugin installed also set /etc/hosts
