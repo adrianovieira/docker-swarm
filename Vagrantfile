@@ -50,7 +50,7 @@ ipv4 = OSLV_PVTNET.split('.')
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # supported box adrianovieira/centos7
-  config.vm.box = "adrianovieira/centos7-docker1.12rc3"
+  config.vm.box = "adrianovieira/centos7-docker1.12rc4"
   config.vm.box_check_update = false
   config.vm.synced_folder ".", "/home/vagrant/sync", type: "rsync"
 
