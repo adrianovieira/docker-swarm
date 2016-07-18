@@ -27,7 +27,7 @@ OSLV_PVTNET = ENV.key?('OSLV_PVTNET') ? ENV['OSLV_PVTNET'] : "192.168.50.10"
 OSLV_GROUP = (ENV.key?('OSLV_GROUP') ? ENV['OSLV_GROUP'] : "Docker-Swarm").downcase
 
 # VM docker swarm workers (default: 2)
-OSLV_SWARM_WORKERS = (ENV.key?('OSLV_SWARM_WORKERS') ? ENV['OSLV_SWARM_WORKERS'].to_i : 1)
+OSLV_SWARM_WORKERS = (ENV.key?('OSLV_SWARM_WORKERS') ? ENV['OSLV_SWARM_WORKERS'].to_i : 2)
 
 # VM fqdn
 OSLV_FQDN = "#{OSLV_NAME}.#{OSLV_DOMAIN}"
