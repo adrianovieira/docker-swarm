@@ -94,6 +94,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     manager.vm.provision "hostname_setup", type: "shell",
             inline: "sudo hostnamectl set-hostname #{OSLV_MANAGER_FQDN}"
 
+    manager.vm.provision "docker_restart", type: "shell",
+            inline: "sudo systemctl daemon-reload ; sudo systemctl restart docker"
+
     manager.vm.provision "docker-setup-swarm", type: "shell" do |sh|
       sh.path = "setup/docker-setup-swarm_manager.sh"
       sh.args   = ["#{OSLV_PVTNET}", "2377"]
@@ -120,6 +123,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       worker.vm.provision "hostname_setup", type: "shell",
                 inline: "sudo hostnamectl set-hostname #{worker_fdqn}"
+
+      worker.vm.provision "docker_restart", type: "shell",
+              inline: "sudo systemctl daemon-reload ; sudo systemctl restart docker"
 
       worker.vm.provision "docker-setup-swarm", type: "shell" do |sh|
         sh.path = "setup/docker-setup-swarm_worker.sh"
