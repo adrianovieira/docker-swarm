@@ -64,7 +64,8 @@ You could setup some environment variable for guests VM, as below:
 - `OSLV_PVTNET`: VM private network (default: 192.168.50.10)
 - `OSLV_SWARM_WORKERS`: VM docker swarm workers (default: 2)
 
-If you want to personalize one of the above variable you need to *export* then before you turn the VM up - e.g. `$ export OSLV_PVTNET=10.0.3.10 OSLV_SWARM_WORKERS=3`.
+If you want to personalize one of the above variable you need to *export* then before you turn the VM up
+- e.g. `$ export OSLV_PVTNET=10.0.3.10 OSLV_SWARM_WORKERS=3`.
 
 ## Exposed VMs
 
